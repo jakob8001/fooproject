@@ -15,6 +15,17 @@ pipeline {
         junit '**/TEST*.xml'
       }
      }
+
   }
+    stage('newman') {
+       steps {
+            sh 'newman run Labb.postman_collection.json --environment URL.postman_environment.json --reporters junit'
+           }
+           post {
+             always {
+                 junit '**/*xml'
+                    }
+                }
+       }
  }
 }
